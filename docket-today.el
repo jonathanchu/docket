@@ -250,17 +250,20 @@
         (erase-buffer)
         (setq docket-today--ewoc
               (ewoc-create #'docket--view-print "" ""))
-        (let ((nodes (docket--today-build-nodes)))
+        (let* ((nodes (docket--today-build-nodes))
+               (task-count (cl-count 'task nodes
+                                     :key #'docket-view-node-type)))
           (if nodes
               (dolist (node nodes)
                 (ewoc-enter-last docket-today--ewoc node))
             (insert (propertize "No tasks for today — you're all caught up!"
-                                'face 'font-lock-comment-face))))
-        (when docket-today--ewoc
-          (ewoc-refresh docket-today--ewoc))
-        (goto-char (point-min))
-        (setq-local header-line-format
-                    (propertize " Today" 'face 'bold))))
+                                'face 'font-lock-comment-face)))
+          (when docket-today--ewoc
+            (ewoc-refresh docket-today--ewoc))
+          (goto-char (point-min))
+          (setq-local header-line-format
+                      (propertize (format " Today (%d)" task-count)
+                                  'face 'bold)))))
     (require 'docket-ui)
     (docket--display-in-main buf)))
 
