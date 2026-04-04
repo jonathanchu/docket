@@ -31,7 +31,14 @@
 
 ;;;; View help menu
 
-(transient-define-prefix docket-view-help ()
+(defun docket-view-help ()
+  "Show help menu for docket task views."
+  (interactive)
+  (let ((transient-display-buffer-action
+         '(display-buffer-in-side-window (side . bottom))))
+    (call-interactively #'docket-view-help-transient)))
+
+(transient-define-prefix docket-view-help-transient ()
   "Help menu for docket task views."
   ["Task Actions"
    ("x" "Toggle done" docket-view-toggle-done)
@@ -51,7 +58,14 @@
 
 ;;;; Sidebar help menu
 
-(transient-define-prefix docket-sidebar-help ()
+(defun docket-sidebar-help ()
+  "Show help menu for the docket sidebar."
+  (interactive)
+  (let ((transient-display-buffer-action
+         '(display-buffer-in-side-window (side . bottom))))
+    (call-interactively #'docket-sidebar-help-transient)))
+
+(transient-define-prefix docket-sidebar-help-transient ()
   "Help menu for the docket sidebar."
   ["Sidebar"
    ("RET" "Open view" docket-sidebar--activate)
