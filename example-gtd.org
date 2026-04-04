@@ -1,0 +1,44 @@
+#+title: Test GTD
+#+TODO: TODO NEXT WAIT SOMEDAY | DONE CANCELLED
+
+* Inbox
+** TODO Buy groceries
+** TODO Call dentist to schedule cleaning
+** TODO Read article on Emacs 30 features                  :emacs:
+
+* Work
+** NEXT [#A] Review PR #142                                :code:
+   DEADLINE: <2026-04-04 Sat>
+** TODO [#B] Ship v2.0 release notes                       :writing:
+   SCHEDULED: <2026-04-04 Sat>
+** WAIT Feedback from design team                          :design:
+** TODO [#A] Prepare quarterly presentation                :meetings:
+   DEADLINE: <2026-04-07 Tue>
+** TODO Update API documentation                           :code:docs:
+   SCHEDULED: <2026-04-06 Mon>
+** DONE Fix login page bug                                 :code:
+   CLOSED: [2026-04-02 Thu]
+** TODO [#C] Refactor test suite                           :code:
+   SCHEDULED: <2026-04-10 Fri>
+
+* Personal
+** TODO [#A] File taxes
+   DEADLINE: <2026-04-15 Wed>
+** NEXT Organize desk                                      :@home:
+** TODO [#B] Schedule car maintenance                      :errands:
+   SCHEDULED: <2026-04-05 Sun>
+** SOMEDAY Learn piano
+** SOMEDAY Start a garden                                  :@home:
+** TODO Return library books                               :errands:
+   DEADLINE: <2026-04-01 Wed>
+
+* Shopping
+** TODO [#B] New running shoes                             :errands:
+** TODO Birthday gift for Sarah                            :errands:
+   DEADLINE: <2026-04-08 Wed>
+
+* Side Projects
+** NEXT [#B] Finish blog post on org-mode                  :writing:emacs:
+** TODO Set up CI for open source project                  :code:
+   SCHEDULED: <2026-04-09 Thu>
+** WAIT Response from contributor on PR                    :code:

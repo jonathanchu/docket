@@ -43,6 +43,16 @@ Or with =use-package=:
   (docket-files '("~/org/gtd.org")))
 #+end_src
 
+* Quick Start
+
+A sample GTD file is included at =example-gtd.org= to try docket immediately:
+
+#+begin_src elisp
+(setq docket-files '("~/path/to/docket/example-gtd.org"))
+#+end_src
+
+Then =C-c d d= to open the workspace.
+
 * Org File Structure
 
 Docket works with standard org files.  The expected convention:
