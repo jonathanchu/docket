@@ -1,0 +1,135 @@
+#+title: Docket
+#+author: Jonathan Chu
+
+Todoist-like GTD task management for Emacs, built on org files.
+
+Docket provides a polished, Todoist-inspired interface for managing
+tasks in plain org files.  No database, no sync service — just your
+org files with a modern UI on top.
+
+* Features
+
+- *Projects sidebar* — ewoc-based side panel listing views, projects with task counts, and labels
+- *Today view* — overdue tasks, tasks due today, and next actions in one glance
+- *Upcoming view* — tasks grouped by date for the next 7 days
+- *Quick add* — natural language capture: =Buy milk #errands p1 tomorrow /Shopping=
+- *Filters* — filter by priority, state, tag, or project; save custom filters
+- *Label browser* — see all tags across your files with counts
+- *Live updates* — cache auto-refreshes when you save your org files
+
+* Requirements
+
+- Emacs 29.1+
+
+* Installation
+
+Clone the repository and add it to your load path:
+
+#+begin_src elisp
+(add-to-list 'load-path "~/path/to/docket")
+(require 'docket)
+
+(setq docket-files '("~/org/gtd.org"))
+(global-set-key (kbd "C-c d") docket-command-map)
+#+end_src
+
+Or with =use-package=:
+
+#+begin_src elisp
+(use-package docket
+  :load-path "~/path/to/docket"
+  :bind-keymap ("C-c d" . docket-command-map)
+  :custom
+  (docket-files '("~/org/gtd.org")))
+#+end_src
+
+* Org File Structure
+
+Docket works with standard org files.  The expected convention:
+
+#+begin_src org
+,* Inbox
+,** TODO Buy groceries
+,** TODO Call dentist
+,* Work
+,** NEXT Review PR #142                                    :code:
+   DEADLINE: <2026-04-05 Sat>
+,** TODO Ship v2.0 release notes
+,** WAIT Feedback from design team                         :design:
+,* Personal
+,** TODO [#A] File taxes
+   DEADLINE: <2026-04-15 Tue>
+,** SOMEDAY Learn piano
+#+end_src
+
+- Level 1 headings = Projects
+- Sub-headings = Tasks
+- TODO states: =TODO=, =NEXT=, =WAIT=, =SOMEDAY=, =DONE=, =CANCELLED=
+- Priorities: =[#A]= (p1), =[#B]= (p2), =[#C]= (p3)
+- Tags: standard org tags for labels
+
+* Keybindings
+
+** Global (under =C-c d= prefix)
+
+| Key     | Command              | Description           |
+|---------+----------------------+-----------------------|
+| =C-c d d= | =docket-open=          | Open workspace        |
+| =C-c d q= | =docket-close=         | Close workspace       |
+| =C-c d a= | =docket-capture=       | Quick add task        |
+| =C-c d t= | =docket-view-today=    | Today view            |
+| =C-c d u= | =docket-view-upcoming= | Upcoming view         |
+| =C-c d f= | =docket-filter=        | Apply filter          |
+| =C-c d l= | =docket-view-labels=   | Browse labels         |
+| =C-c d r= | =docket-refresh=       | Force refresh         |
+
+** In task views
+
+| Key   | Action                 |
+|-------+------------------------|
+| =x=     | Toggle task done/todo  |
+| =RET=   | Jump to task in org    |
+| =e=     | Cycle priority         |
+| =t=     | Change TODO state      |
+| =s=     | Set scheduled date     |
+| =d=     | Set deadline           |
+| =#=     | Edit tags              |
+| =n= / =p= | Next / previous task   |
+| =g=     | Refresh view           |
+| =q=     | Close workspace        |
+
+* Quick Add Syntax
+
+The quick add command (=C-c d a=) parses natural language:
+
+#+begin_example
+Buy milk #errands p1 tomorrow /Shopping
+#+end_example
+
+| Token       | Meaning                            |
+|-------------+------------------------------------|
+| =#tag=        | Org tag                            |
+| =p1= / =p2= / =p3= | Priority A / B / C                 |
+| =today=       | Schedule for today                 |
+| =tomorrow=    | Schedule for tomorrow              |
+| =monday= etc. | Schedule for next occurrence       |
+| =+3d=         | Schedule 3 days from now           |
+| =!deadline=   | Next date sets deadline            |
+| =/Project=    | File under project heading         |
+
+* Configuration
+
+#+begin_src elisp
+;; Required: list of org files to use
+(setq docket-files '("~/org/gtd.org" "~/org/work.org"))
+
+;; Optional customizations
+(setq docket-inbox-heading "Inbox")        ; default
+(setq docket-sidebar-width 32)            ; default
+(setq docket-todo-states '("TODO" "NEXT" "WAIT" "SOMEDAY"))  ; default
+(setq docket-done-states '("DONE" "CANCELLED"))              ; default
+#+end_src
+
+* License
+
+GPL v3.  See [[file:LICENSE][LICENSE]].

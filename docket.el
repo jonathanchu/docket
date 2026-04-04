@@ -311,12 +311,29 @@ Includes: overdue, due today (deadline/scheduled), and NEXT tasks."
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "d") #'docket-open)
     (define-key map (kbd "q") #'docket-close)
+    (define-key map (kbd "t") #'docket-view-today)
     (define-key map (kbd "r") #'docket-refresh)
     map)
   "Keymap for docket commands, bound under a prefix key.
 Bind this to a prefix key in your init file, e.g.:
   (global-set-key (kbd \"C-c d\") docket-command-map)")
 
+;;;###autoload
+(defun docket-view-today ()
+  "Show the today view."
+  (interactive)
+  (docket--ensure-files)
+  (unless docket--cache (docket--refresh-cache))
+  (require 'docket-today)
+  (docket--render-today))
+
 (provide 'docket)
+
+(require 'docket-ui)
+(require 'docket-sidebar)
+(require 'docket-today)
+(require 'docket-capture)
+(require 'docket-upcoming)
+(require 'docket-filter)
 
 ;;; docket.el ends here
