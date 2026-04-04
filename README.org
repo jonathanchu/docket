@@ -16,7 +16,11 @@ org files with a modern UI on top.
 - *Filters* — filter by priority, state, tag, or project; save custom filters
 - *Label browser* — see all tags across your files with counts
 - *Project management* — create new projects from quick-add or =C-c d p=
-- *Live updates* — cache auto-refreshes when you save your org files
+- *Refile* — move tasks between projects without leaving the view
+- *Sort modes* — cycle between priority, date, and project sorting
+- *Completed toggle* — show/hide done tasks in any view
+- *Help menus* — contextual transient popups with =?=
+- *Live updates* — cache auto-refreshes when you save your org files; sidebar counts update on every action
 
 * Requirements
 
@@ -78,6 +82,7 @@ Docket works with standard org files.  The expected convention:
 - TODO states: =TODO=, =NEXT=, =WAIT=, =SOMEDAY=, =DONE=, =CANCELLED=
 - Priorities: =[#A]= (p1), =[#B]= (p2), =[#C]= (p3)
 - Tags: standard org tags for labels
+- State indicators: =●= NEXT, =○= TODO, =◑= WAIT, =◌= SOMEDAY, =◉= DONE, =⊘= CANCELLED
 
 * Keybindings
 
@@ -106,6 +111,10 @@ Docket works with standard org files.  The expected convention:
 | =s=     | Set scheduled date     |
 | =d=     | Set deadline           |
 | =#=     | Edit tags              |
+| =/=     | Move to project        |
+| =S=     | Cycle sort mode        |
+| =H=     | Toggle completed tasks |
+| =?=     | Help menu              |
 | =n= / =p= | Next / previous task   |
 | =g=     | Refresh view           |
 | =q=     | Close workspace        |
