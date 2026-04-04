@@ -5,6 +5,8 @@
 ** TODO Buy groceries
 ** TODO Call dentist to schedule cleaning
 ** TODO Read article on Emacs 30 features                  :emacs:
+** TODO Weekly review                                      :gtd:
+   SCHEDULED: <2026-04-07 Mon +1w>
 
 * Work
 ** NEXT [#A] Review PR #142                                :code:

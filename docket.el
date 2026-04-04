@@ -261,11 +261,28 @@ Includes: overdue, due today (deadline/scheduled), and NEXT tasks."
           (save-buffer))))
     (docket--refresh-cache)))
 
+(defun docket--task-has-repeater-p (task)
+  "Return non-nil if TASK has a repeating timestamp."
+  (let ((file (docket-task-file task))
+        (pos (docket-task-point task)))
+    (with-current-buffer (find-file-noselect file)
+      (save-excursion
+        (goto-char pos)
+        (let ((end (save-excursion (org-end-of-subtree t) (point))))
+          (re-search-forward "[.+]\\+[0-9]+[hdwmy]" end t))))))
+
 (defun docket--toggle-task-done (task)
-  "Toggle TASK between its current state and DONE."
-  (if (member (docket-task-state task) docket-done-states)
-      (docket--set-task-state task "TODO")
-    (docket--set-task-state task "DONE")))
+  "Toggle TASK between its current state and DONE.
+For recurring tasks, org-mode automatically advances the date
+and resets the state."
+  (let ((was-repeater (and (not (member (docket-task-state task)
+                                        docket-done-states))
+                           (docket--task-has-repeater-p task))))
+    (if (member (docket-task-state task) docket-done-states)
+        (docket--set-task-state task "TODO")
+      (docket--set-task-state task "DONE"))
+    (when was-repeater
+      (message "Recurring task: date advanced"))))
 
 (defun docket--jump-to-task (task)
   "Open the org file and jump to TASK's heading."
