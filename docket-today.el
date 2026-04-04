@@ -509,6 +509,7 @@ Tasks without dates sort to the end."
     (message "Sort: %s" next)))
 
 (declare-function docket-sidebar-refresh "docket-sidebar")
+(declare-function docket-view-help "docket-transient")
 
 (defun docket-view-refresh ()
   "Refresh the current view and update sidebar counts."
@@ -560,6 +561,7 @@ Tasks without dates sort to the end."
     (define-key map (kbd "/") #'docket-view-refile)
     (define-key map (kbd "H") #'docket-view-toggle-show-done)
     (define-key map (kbd "S") #'docket-view-cycle-sort)
+    (define-key map (kbd "?") #'docket-view-help)
     (define-key map (kbd "q") #'docket-close)
     map)
   "Keymap for docket view buffers (today, upcoming, filter).")

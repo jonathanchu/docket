@@ -353,5 +353,6 @@ Bind this to a prefix key in your init file, e.g.:
 (require 'docket-capture)
 (require 'docket-upcoming)
 (require 'docket-filter)
+(require 'docket-transient)
 
 ;;; docket.el ends here
