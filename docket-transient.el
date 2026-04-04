@@ -35,7 +35,7 @@
   "Show help menu for docket task views."
   (interactive)
   (let ((transient-display-buffer-action
-         '(display-buffer-in-side-window (side . bottom))))
+         '(display-buffer-at-bottom)))
     (call-interactively #'docket-view-help-transient)))
 
 (transient-define-prefix docket-view-help-transient ()
@@ -62,7 +62,7 @@
   "Show help menu for the docket sidebar."
   (interactive)
   (let ((transient-display-buffer-action
-         '(display-buffer-in-side-window (side . bottom))))
+         '(display-buffer-at-bottom)))
     (call-interactively #'docket-sidebar-help-transient)))
 
 (transient-define-prefix docket-sidebar-help-transient ()
