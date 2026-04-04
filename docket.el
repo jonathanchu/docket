@@ -191,11 +191,12 @@ Returns nil if TS is nil."
 (defun docket--today-tasks ()
   "Return tasks relevant to today's view.
 Includes: overdue, due today (deadline/scheduled), and NEXT tasks."
-  (let ((today (current-time))
-        (day-end (encode-time
-                  (decoded-time-add (decode-time)
-                                    (make-decoded-time :hour 23 :minute 59
-                                                       :second 59)))))
+  (let* ((today (current-time))
+         (decoded (decode-time today))
+         (day-end (encode-time 59 59 23
+                               (decoded-time-day decoded)
+                               (decoded-time-month decoded)
+                               (decoded-time-year decoded))))
     (cl-remove-if-not
      (lambda (task)
        (and (member (docket-task-state task) docket-todo-states)

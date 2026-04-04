@@ -188,22 +188,26 @@
 
 (defun docket--today-build-nodes ()
   "Build the list of view nodes for the today view."
-  (let ((now (current-time))
-        (today-end (encode-time
-                    (decoded-time-add
-                     (decode-time)
-                     (make-decoded-time :hour 23 :minute 59 :second 59))))
-        overdue-tasks today-tasks next-tasks nodes)
+  (let* ((now (current-time))
+         (decoded (decode-time now))
+         (today-start (encode-time 0 0 0
+                                   (decoded-time-day decoded)
+                                   (decoded-time-month decoded)
+                                   (decoded-time-year decoded)))
+         (today-end (encode-time 59 59 23
+                                 (decoded-time-day decoded)
+                                 (decoded-time-month decoded)
+                                 (decoded-time-year decoded)))
+         overdue-tasks today-tasks next-tasks nodes)
     ;; Categorize tasks
     (dolist (task (docket--active-tasks))
       (let ((dl (docket-task-deadline task))
             (sc (docket-task-scheduled task))
             (state (docket-task-state task)))
         (cond
-         ;; Overdue: deadline or scheduled before today
-         ((and dl (time-less-p dl now))
-          (push task overdue-tasks))
-         ((and sc (time-less-p sc now) (not (time-less-p sc today-end)))
+         ;; Overdue: deadline or scheduled before start of today
+         ((or (and dl (time-less-p dl today-start))
+              (and sc (time-less-p sc today-start)))
           (push task overdue-tasks))
          ;; Due/scheduled today
          ((or (and dl (time-less-p dl today-end))
