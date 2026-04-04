@@ -15,6 +15,7 @@ org files with a modern UI on top.
 - *Quick add* — natural language capture: =Buy milk #errands p1 tomorrow /Shopping=
 - *Filters* — filter by priority, state, tag, or project; save custom filters
 - *Label browser* — see all tags across your files with counts
+- *Project management* — create new projects from quick-add or =C-c d p=
 - *Live updates* — cache auto-refreshes when you save your org files
 
 * Requirements
@@ -89,6 +90,7 @@ Docket works with standard org files.  The expected convention:
 | =C-c d a= | =docket-capture=       | Quick add task        |
 | =C-c d t= | =docket-view-today=    | Today view            |
 | =C-c d u= | =docket-view-upcoming= | Upcoming view         |
+| =C-c d p= | =docket-create-project=  | Create new project    |
 | =C-c d f= | =docket-filter=        | Apply filter          |
 | =C-c d l= | =docket-view-labels=   | Browse labels         |
 | =C-c d r= | =docket-refresh=       | Force refresh         |
@@ -126,6 +128,9 @@ Buy milk #errands p1 tomorrow /Shopping
 | =+3d=         | Schedule 3 days from now           |
 | =!deadline=   | Next date sets deadline            |
 | =/Project=    | File under project heading         |
+
+If the project doesn't exist, docket will ask whether to create it.
+You can also create an empty project with =C-c d p=.
 
 * Configuration
 
