@@ -162,7 +162,15 @@ Syntax:
     (when project
       (dolist (f docket-files)
         (when-let ((pos (docket-capture--find-project-heading project f)))
-          (setq file f target-pos pos))))
+          (setq file f target-pos pos)))
+      ;; Create the project heading if it doesn't exist
+      (unless target-pos
+        (with-current-buffer (find-file-noselect file)
+          (save-excursion
+            (goto-char (point-max))
+            (unless (bolp) (insert "\n"))
+            (insert (format "* %s\n" project))
+            (setq target-pos (point))))))
     (unless target-pos
       (setq target-pos (docket-capture--find-inbox file)))
     ;; Build the heading
