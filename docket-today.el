@@ -428,8 +428,10 @@
     (require 'docket-upcoming)
     (docket--render-upcoming))
    ((bound-and-true-p docket-filter--ewoc)
-    ;; Filter views need to be re-triggered from sidebar
-    (message "Press g in the sidebar to refresh filters"))))
+    (require 'docket-filter)
+    (when (and docket-filter--title docket-filter--predicate)
+      (docket--render-filter :title docket-filter--title
+                             :predicate docket-filter--predicate)))))
 
 ;;;; Mode
 
