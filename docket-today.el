@@ -334,7 +334,10 @@ Tasks without dates sort to the end."
         ;; Update the node with refreshed task data
         (setf (docket-view-node-task (ewoc-data ewoc-node))
               (docket--find-task-by-id (docket-task-id task)))
-        (ewoc-invalidate ewoc ewoc-node)))))
+        (ewoc-invalidate ewoc ewoc-node)))
+    ;; Update sidebar counts
+    (when (get-buffer "*docket-sidebar*")
+      (docket-sidebar-refresh))))
 
 (defun docket--find-task-by-id (id)
   "Find a task in the cache by ID."
@@ -505,8 +508,10 @@ Tasks without dates sort to the end."
     (docket-view-refresh)
     (message "Sort: %s" next)))
 
+(declare-function docket-sidebar-refresh "docket-sidebar")
+
 (defun docket-view-refresh ()
-  "Refresh the current view."
+  "Refresh the current view and update sidebar counts."
   (interactive)
   (docket--refresh-cache)
   (cond
@@ -519,7 +524,10 @@ Tasks without dates sort to the end."
     (require 'docket-filter)
     (when (and docket-filter--title docket-filter--predicate)
       (docket--render-filter :title docket-filter--title
-                             :predicate docket-filter--predicate)))))
+                             :predicate docket-filter--predicate))))
+  ;; Update sidebar counts
+  (when (get-buffer "*docket-sidebar*")
+    (docket-sidebar-refresh)))
 
 ;;;; Show/hide completed tasks
 
