@@ -1,4 +1,4 @@
-#+html: <p align="center"><img src="logo.svg" width="128" alt="Docket logo" /></p>
+#+html: <p align="center"><img src="logo.svg" width="200" alt="Docket logo" /></p>
 #+title: Docket
 #+author: Jonathan Chu
 
