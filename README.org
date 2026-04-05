@@ -8,6 +8,8 @@ Docket provides a polished, Todoist-inspired interface for managing
 tasks in plain org files.  No database, no sync service — just your
 org files with a modern UI on top.
 
+#+html: <p align="center"><img src="docket-screenshot.png" width="800" alt="Docket upcoming view" /></p>
+
 * Features
 
 - *Projects sidebar* — ewoc-based side panel listing views, projects with task counts, and labels
