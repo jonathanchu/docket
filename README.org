@@ -53,13 +53,27 @@ Or with =use-package=:
 
 * Quick Start
 
-A sample GTD file is included at =example-gtd.org= to try docket immediately:
+Give docket a full try without touching any of your existing org files — the included [[https://github.com/jonathanchu/docket/blob/main/example-gtd.org][example-gtd.org]] comes fully populated with sample projects, tasks, and tags:
 
-#+begin_src elisp
-(setq docket-files '("~/path/to/docket/example-gtd.org"))
+#+begin_src sh
+cp ~/path/to/docket/example-gtd.org ~/org/gtd.org
 #+end_src
 
-Then =C-c d d= to open the workspace.
+#+begin_src elisp
+(setq docket-files '("~/org/gtd.org"))
+#+end_src
+
+Then =C-c d d= to open the workspace and explore.
+
+When you're ready to start for real, the barebones [[https://github.com/jonathanchu/docket/blob/main/starter-gtd.org][starter-gtd.org]] is included — copy it to your org directory and make it your own:
+
+#+begin_src sh
+cp ~/path/to/docket/starter-gtd.org ~/org/gtd.org
+#+end_src
+
+#+begin_src elisp
+(setq docket-files '("~/org/gtd.org"))
+#+end_src
 
 * Org File Structure
 

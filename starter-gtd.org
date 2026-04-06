@@ -1,0 +1,13 @@
+#+title: My GTD
+#+TODO: TODO NEXT WAIT SOMEDAY | DONE CANCELLED
+
+* Inbox
+** TODO Capture new tasks here
+
+* Work
+
+* Personal
+
+* Shopping
+
+* Side Projects
