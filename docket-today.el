@@ -413,7 +413,8 @@ Tasks without dates sort to the end."
       (with-current-buffer (find-file-noselect file)
         (save-excursion
           (goto-char pos)
-          (org-deadline nil)))
+          (org-deadline nil))
+        (save-buffer))
       (docket--refresh-cache)
       (when-let ((ewoc (docket-view--current-ewoc)))
         (let ((inhibit-read-only t)
