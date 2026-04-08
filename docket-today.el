@@ -81,7 +81,8 @@
   :group 'docket)
 
 (defface docket-date
-  '((t :inherit shadow))
+  '((((class color) (min-colors 88)) :foreground "#7aa2f7")
+    (t :inherit font-lock-function-name-face))
   "Face for future date indicators."
   :group 'docket)
 
