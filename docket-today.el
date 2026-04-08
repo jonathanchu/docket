@@ -81,7 +81,7 @@
   :group 'docket)
 
 (defface docket-date
-  '((t :inherit font-lock-function-name-face))
+  '((t :inherit font-lock-comment-face))
   "Face for future date indicators."
   :group 'docket)
 
