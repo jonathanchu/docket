@@ -388,55 +388,60 @@ Tasks without dates sort to the end."
 (defun docket-view--read-date (prompt)
   "Read a date string using PROMPT.
 Accepts the same inputs as `docket-capture--parse-relative-date'
-\(today, tomorrow, day names, +Nd) as well as YYYY-MM-DD dates.
-Returns an Org date string."
+\(today, tomorrow, day names, +Nd, +N) as well as YYYY-MM-DD dates.
+Returns an Emacs time value."
   (require 'docket-capture)
   (let* ((input (read-string prompt))
          (time (or (docket-capture--parse-relative-date input)
+                   ;; Accept "+N" as "+Nd"
+                   (and (string-match-p "^\\+[0-9]+$" input)
+                        (docket-capture--parse-relative-date (concat input "d")))
                    (and (string-match-p "^[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}$" input)
                         (encode-time (org-parse-time-string (concat input " 00:00"))))
                    (user-error "Unrecognized date: %s" input))))
-    (format-time-string "%Y-%m-%d" time)))
+    time))
+
+(defun docket-view--set-date (task keyword time)
+  "Set KEYWORD (\"SCHEDULED\" or \"DEADLINE\") on TASK to TIME.
+TIME is an Emacs time value."
+  (let ((file (docket-task-file task))
+        (pos (docket-task-point task))
+        (ts (format-time-string "<%Y-%m-%d %a>" time)))
+    (with-current-buffer (find-file-noselect file)
+      (save-excursion
+        (goto-char pos)
+        (let ((end (save-excursion (org-end-of-subtree t) (point))))
+          ;; Remove existing keyword line if present
+          (save-excursion
+            (when (re-search-forward
+                   (format "^[ \t]*%s: " keyword) end t)
+              (beginning-of-line)
+              (delete-region (point) (progn (forward-line 1) (point)))))
+          ;; Insert new keyword line after heading
+          (forward-line 1)
+          (insert (format "   %s: %s\n" keyword ts))))
+      (save-buffer))
+    (docket--refresh-cache)
+    (when-let ((ewoc (docket-view--current-ewoc)))
+      (let ((inhibit-read-only t)
+            (ewoc-node (ewoc-locate ewoc)))
+        (setf (docket-view-node-task (ewoc-data ewoc-node))
+              (docket--find-task-by-id (docket-task-id task)))
+        (ewoc-invalidate ewoc ewoc-node)))))
 
 (defun docket-view-set-scheduled ()
   "Set the scheduled date of the task at point."
   (interactive)
   (when-let ((task (docket-view--task-at-point)))
-    (let ((file (docket-task-file task))
-          (pos (docket-task-point task))
-          (time (docket-view--read-date "Scheduled: ")))
-      (with-current-buffer (find-file-noselect file)
-        (save-excursion
-          (goto-char pos)
-          (org-schedule nil time))
-        (save-buffer))
-      (docket--refresh-cache)
-      (when-let ((ewoc (docket-view--current-ewoc)))
-        (let ((inhibit-read-only t)
-              (ewoc-node (ewoc-locate ewoc)))
-          (setf (docket-view-node-task (ewoc-data ewoc-node))
-                (docket--find-task-by-id (docket-task-id task)))
-          (ewoc-invalidate ewoc ewoc-node))))))
+    (docket-view--set-date task "SCHEDULED"
+                           (docket-view--read-date "Scheduled: "))))
 
 (defun docket-view-set-deadline ()
   "Set the deadline of the task at point."
   (interactive)
   (when-let ((task (docket-view--task-at-point)))
-    (let ((file (docket-task-file task))
-          (pos (docket-task-point task))
-          (time (docket-view--read-date "Deadline: ")))
-      (with-current-buffer (find-file-noselect file)
-        (save-excursion
-          (goto-char pos)
-          (org-deadline nil time))
-        (save-buffer))
-      (docket--refresh-cache)
-      (when-let ((ewoc (docket-view--current-ewoc)))
-        (let ((inhibit-read-only t)
-              (ewoc-node (ewoc-locate ewoc)))
-          (setf (docket-view-node-task (ewoc-data ewoc-node))
-                (docket--find-task-by-id (docket-task-id task)))
-          (ewoc-invalidate ewoc ewoc-node))))))
+    (docket-view--set-date task "DEADLINE"
+                           (docket-view--read-date "Deadline: "))))
 
 (defun docket-view-set-tags ()
   "Edit the tags of the task at point."
