@@ -432,7 +432,8 @@ Tasks without dates sort to the end."
       (with-current-buffer (find-file-noselect file)
         (save-excursion
           (goto-char pos)
-          (org-set-tags-command)))
+          (org-set-tags-command))
+        (save-buffer))
       (docket--refresh-cache)
       (when-let ((ewoc (docket-view--current-ewoc)))
         (let ((inhibit-read-only t)
