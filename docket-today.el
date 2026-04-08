@@ -361,7 +361,8 @@ Tasks without dates sort to the end."
       (with-current-buffer (find-file-noselect file)
         (save-excursion
           (goto-char pos)
-          (org-priority (if new-pri (string-to-char new-pri) ?\s))))
+          (org-priority (if new-pri (string-to-char new-pri) ?\s)))
+        (save-buffer))
       (docket--refresh-cache)
       (when-let ((ewoc (docket-view--current-ewoc)))
         (let ((inhibit-read-only t)
