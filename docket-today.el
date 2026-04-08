@@ -171,13 +171,10 @@ Uses \"Today\", \"Tomorrow\", day names for this week, or \"Mon DD\" otherwise."
                                (docket--priority-face priority)
                              'docket-task-title)))
          (date-str (unless done-p
-                     (cond
-                      (deadline
-                       (propertize (format " %s %s" "due" (docket--format-date deadline))
-                                   'face (docket--date-face deadline)))
-                      (scheduled
-                       (propertize (format " %s" (docket--format-date scheduled))
-                                   'face (docket--date-face scheduled))))))
+                     (let ((date (or deadline scheduled)))
+                       (when date
+                         (propertize (format "  <%s>" (docket--format-date date))
+                                     'face (docket--date-face date))))))
          (tag-str (when tags
                     (propertize
                      (concat " " (mapconcat (lambda (tag) (concat "#" tag))
