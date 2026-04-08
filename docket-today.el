@@ -385,18 +385,31 @@ Tasks without dates sort to the end."
                 (docket--find-task-by-id (docket-task-id task)))
           (ewoc-invalidate ewoc ewoc-node))))))
 
+(defun docket-view--read-date (prompt)
+  "Read a date string using PROMPT.
+Accepts the same inputs as `docket-capture--parse-relative-date'
+\(today, tomorrow, day names, +Nd) as well as YYYY-MM-DD dates.
+Returns an Org date string."
+  (require 'docket-capture)
+  (let* ((input (read-string prompt))
+         (time (or (docket-capture--parse-relative-date input)
+                   (and (string-match-p "^[0-9]\\{4\\}-[0-9]\\{2\\}-[0-9]\\{2\\}$" input)
+                        (encode-time (org-parse-time-string (concat input " 00:00"))))
+                   (user-error "Unrecognized date: %s" input))))
+    (format-time-string "%Y-%m-%d" time)))
+
 (defun docket-view-set-scheduled ()
   "Set the scheduled date of the task at point."
   (interactive)
   (when-let ((task (docket-view--task-at-point)))
     (let ((file (docket-task-file task))
-          (pos (docket-task-point task)))
-      (save-window-excursion
-        (with-current-buffer (find-file-noselect file)
+          (pos (docket-task-point task))
+          (time (docket-view--read-date "Scheduled: ")))
+      (with-current-buffer (find-file-noselect file)
+        (save-excursion
           (goto-char pos)
-          (pop-to-buffer (current-buffer))
-          (org-schedule nil)
-          (save-buffer)))
+          (org-schedule nil time))
+        (save-buffer))
       (docket--refresh-cache)
       (when-let ((ewoc (docket-view--current-ewoc)))
         (let ((inhibit-read-only t)
@@ -410,13 +423,13 @@ Tasks without dates sort to the end."
   (interactive)
   (when-let ((task (docket-view--task-at-point)))
     (let ((file (docket-task-file task))
-          (pos (docket-task-point task)))
-      (save-window-excursion
-        (with-current-buffer (find-file-noselect file)
+          (pos (docket-task-point task))
+          (time (docket-view--read-date "Deadline: ")))
+      (with-current-buffer (find-file-noselect file)
+        (save-excursion
           (goto-char pos)
-          (pop-to-buffer (current-buffer))
-          (org-deadline nil)
-          (save-buffer)))
+          (org-deadline nil time))
+        (save-buffer))
       (docket--refresh-cache)
       (when-let ((ewoc (docket-view--current-ewoc)))
         (let ((inhibit-read-only t)
