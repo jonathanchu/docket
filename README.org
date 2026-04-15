@@ -39,6 +39,7 @@ Clone the repository and add it to your load path:
 
 (setq docket-files '("~/org/gtd.org"))
 (global-set-key (kbd "C-c d") docket-command-map)
+(global-docket-mode 1)
 #+end_src
 
 Or with =use-package=:
@@ -48,8 +49,12 @@ Or with =use-package=:
   :load-path "~/path/to/docket"
   :bind-keymap ("C-c d" . docket-command-map)
   :custom
-  (docket-files '("~/org/gtd.org")))
+  (docket-files '("~/org/gtd.org"))
+  :config
+  (global-docket-mode 1))
 #+end_src
+
+=global-docket-mode= activates =docket-mode= in any buffer visiting a file listed in =docket-files=.  Omit it if you'd rather enable =docket-mode= manually per buffer.
 
 * Quick Start
 
