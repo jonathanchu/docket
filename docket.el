@@ -321,10 +321,15 @@ Includes: overdue, due today (deadline/scheduled), and NEXT tasks."
 
 (defvar docket-command-map
   (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "a") #'docket-capture)
     (define-key map (kbd "d") #'docket-open)
+    (define-key map (kbd "f") #'docket-filter)
+    (define-key map (kbd "l") #'docket-view-labels)
+    (define-key map (kbd "p") #'docket-create-project)
     (define-key map (kbd "q") #'docket-close)
-    (define-key map (kbd "t") #'docket-view-today)
     (define-key map (kbd "r") #'docket-refresh)
+    (define-key map (kbd "t") #'docket-view-today)
+    (define-key map (kbd "u") #'docket-view-upcoming)
     map)
   "Keymap for docket commands, bound under a prefix key.
 Bind this to a prefix key in your init file, e.g.:

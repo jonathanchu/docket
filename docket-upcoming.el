@@ -130,9 +130,6 @@
     (require 'docket-ui)
     (docket--display-in-main buf)))
 
-;; Register in command map
-(define-key docket-command-map (kbd "u") #'docket-view-upcoming)
-
 ;;;###autoload
 (defun docket-view-upcoming ()
   "Show the upcoming tasks view."

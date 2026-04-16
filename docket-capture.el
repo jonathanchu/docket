@@ -262,9 +262,5 @@ Syntax: Buy milk #errands p1 tomorrow /Shopping
     (docket--refresh-cache)
     (message "Created project: %s" name)))
 
-;; Register in command map
-(define-key docket-command-map (kbd "a") #'docket-capture)
-(define-key docket-command-map (kbd "p") #'docket-create-project)
-
 (provide 'docket-capture)
 ;;; docket-capture.el ends here
