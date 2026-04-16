@@ -196,7 +196,7 @@ Syntax:
                            (when tags
                              (concat "  :" (mapconcat #'identity tags ":") ":"))))
           (timestamp (when date
-                       (let ((ts-str (format-time-string "<%Y-%m-%d %a>" date)))
+                       (let ((ts-str (format-time-string "<%F %a>" date)))
                          (if (eq date-type 'deadline)
                              (format "DEADLINE: %s" ts-str)
                            (format "SCHEDULED: %s" ts-str))))))
