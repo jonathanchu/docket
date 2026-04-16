@@ -221,13 +221,12 @@ Includes: overdue, due today (deadline/scheduled), and NEXT tasks."
 
 (defun docket--upcoming-tasks ()
   "Return tasks with a deadline or scheduled date in the future."
-  (let ((now (current-time)))
-    (cl-remove-if-not
-     (lambda (task)
-       (and (member (docket-task-state task) docket-todo-states)
-            (or (docket-task-deadline task)
-                (docket-task-scheduled task))))
-     (docket--tasks))))
+  (cl-remove-if-not
+   (lambda (task)
+     (and (member (docket-task-state task) docket-todo-states)
+          (or (docket-task-deadline task)
+              (docket-task-scheduled task))))
+   (docket--tasks)))
 
 (defun docket--tasks-for-project (project)
   "Return active tasks belonging to PROJECT."
