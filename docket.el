@@ -281,7 +281,7 @@ Includes: overdue, due today (deadline/scheduled), and NEXT tasks."
     (find-file file)
     (goto-char pos)
     (org-reveal)
-    (org-show-entry)))
+    (org-fold-show-entry)))
 
 ;;;; After-save hook for auto-refresh
 
