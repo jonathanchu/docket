@@ -6,7 +6,7 @@
 ;; URL: https://github.com/jonathanchu/docket
 ;; Version: 0.1.0
 ;; Package-Requires: ((emacs "29.1"))
-;; Keywords: org-mode gtd productivity
+;; Keywords: outlines convenience
 
 ;; This file is not part of GNU Emacs.
 
