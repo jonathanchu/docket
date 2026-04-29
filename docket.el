@@ -38,15 +38,13 @@
 ;;; Code:
 
 (require 'docket-core)
-
-(declare-function docket-capture "docket-capture")
-(declare-function docket-create-project "docket-capture")
-(declare-function docket-open "docket-ui")
-(declare-function docket-close "docket-ui")
-(declare-function docket-filter "docket-filter")
-(declare-function docket-view-labels "docket-filter")
-(declare-function docket-view-upcoming "docket-upcoming")
-(declare-function docket--render-today "docket-today")
+(require 'docket-ui)
+(require 'docket-capture)
+(require 'docket-today)
+(require 'docket-sidebar)
+(require 'docket-upcoming)
+(require 'docket-filter)
+(require 'docket-transient)
 
 ;;;; Command map
 
@@ -72,7 +70,6 @@ Bind this to a prefix key in your init file, e.g.:
   (interactive)
   (docket--ensure-files)
   (unless docket--cache (docket--refresh-cache))
-  (require 'docket-today)
   (docket--render-today))
 
 (provide 'docket)
