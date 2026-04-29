@@ -110,36 +110,36 @@ Docket works with standard org files.  The expected convention:
 
 ** Global (under =C-c d= prefix)
 
-| Key     | Command              | Description           |
-|---------+----------------------+-----------------------|
-| =C-c d d= | =docket-open=          | Open workspace        |
-| =C-c d q= | =docket-close=         | Close workspace       |
-| =C-c d a= | =docket-capture=       | Quick add task        |
-| =C-c d t= | =docket-view-today=    | Today view            |
-| =C-c d u= | =docket-view-upcoming= | Upcoming view         |
-| =C-c d p= | =docket-create-project=  | Create new project    |
-| =C-c d f= | =docket-filter=        | Apply filter          |
-| =C-c d l= | =docket-view-labels=   | Browse labels         |
-| =C-c d r= | =docket-refresh=       | Force refresh         |
+| Key       | Command                 | Description        |
+|-----------+-------------------------+--------------------|
+| =C-c d d= | =docket-open=           | Open workspace     |
+| =C-c d q= | =docket-close=          | Close workspace    |
+| =C-c d a= | =docket-capture=        | Quick add task     |
+| =C-c d t= | =docket-view-today=     | Today view         |
+| =C-c d u= | =docket-view-upcoming=  | Upcoming view      |
+| =C-c d p= | =docket-create-project= | Create new project |
+| =C-c d f= | =docket-filter=         | Apply filter       |
+| =C-c d l= | =docket-view-labels=    | Browse labels      |
+| =C-c d r= | =docket-refresh=        | Force refresh      |
 
 ** In task views
 
-| Key   | Action                 |
-|-------+------------------------|
-| =x=     | Toggle task done/todo  |
-| =RET=   | Jump to task in org    |
-| =e=     | Cycle priority         |
-| =t=     | Change TODO state      |
-| =s=     | Set scheduled date     |
-| =d=     | Set deadline           |
-| =#=     | Edit tags              |
-| =/=     | Move to project        |
-| =S=     | Cycle sort mode        |
-| =H=     | Toggle completed tasks |
-| =?=     | Help menu              |
+| Key       | Action                 |
+|-----------+------------------------|
+| =x=       | Toggle task done/todo  |
+| =RET=     | Jump to task in org    |
+| =e=       | Cycle priority         |
+| =t=       | Change TODO state      |
+| =s=       | Set scheduled date     |
+| =d=       | Set deadline           |
+| =#=       | Edit tags              |
+| =/=       | Move to project        |
+| =S=       | Cycle sort mode        |
+| =H=       | Toggle completed tasks |
+| =?=       | Help menu              |
 | =n= / =p= | Next / previous task   |
-| =g=     | Refresh view           |
-| =q=     | Close workspace        |
+| =g=       | Refresh view           |
+| =q=       | Close workspace        |
 
 * Quick Add Syntax
 
@@ -149,16 +149,16 @@ The quick add command (=C-c d a=) parses natural language:
 Buy milk #errands p1 tomorrow /Shopping
 #+end_example
 
-| Token       | Meaning                            |
-|-------------+------------------------------------|
-| =#tag=        | Org tag                            |
-| =p1= / =p2= / =p3= | Priority A / B / C                 |
-| =today=       | Schedule for today                 |
-| =tomorrow=    | Schedule for tomorrow              |
-| =monday= etc. | Schedule for next occurrence       |
-| =+3d=         | Schedule 3 days from now           |
-| =!deadline=   | Next date sets deadline            |
-| =/Project=    | File under project heading         |
+| Token              | Meaning                      |
+|--------------------+------------------------------|
+| =#tag=             | Org tag                      |
+| =p1= / =p2= / =p3= | Priority A / B / C           |
+| =today=            | Schedule for today           |
+| =tomorrow=         | Schedule for tomorrow        |
+| =monday= etc.      | Schedule for next occurrence |
+| =+3d=              | Schedule 3 days from now     |
+| =!deadline=        | Next date sets deadline      |
+| =/Project=         | File under project heading   |
 
 If the project doesn't exist, docket will ask whether to create it.
 You can also create an empty project with =C-c d p=.
