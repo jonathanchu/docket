@@ -346,12 +346,4 @@ Bind this to a prefix key in your init file, e.g.:
 
 (provide 'docket)
 
-(require 'docket-ui)
-(require 'docket-sidebar)
-(require 'docket-today)
-(require 'docket-capture)
-(require 'docket-upcoming)
-(require 'docket-filter)
-(require 'docket-transient)
-
 ;;; docket.el ends here
