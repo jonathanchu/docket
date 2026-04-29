@@ -41,6 +41,15 @@
 (require 'org)
 (require 'org-element)
 
+(declare-function docket-capture "docket-capture")
+(declare-function docket-create-project "docket-capture")
+(declare-function docket-open "docket-ui")
+(declare-function docket-close "docket-ui")
+(declare-function docket-filter "docket-filter")
+(declare-function docket-view-labels "docket-filter")
+(declare-function docket-view-upcoming "docket-upcoming")
+(declare-function docket--render-today "docket-today")
+
 ;;;; Customization
 
 (defgroup docket nil

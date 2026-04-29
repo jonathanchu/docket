@@ -32,6 +32,18 @@
 (require 'ewoc)
 (require 'docket)
 
+(declare-function docket--display-in-main "docket-ui")
+(declare-function docket--render-upcoming "docket-upcoming")
+(declare-function docket--render-filter "docket-filter")
+(declare-function docket-capture--parse-relative-date "docket-capture")
+(declare-function docket-capture--find-project-heading "docket-capture")
+(declare-function docket-close "docket-ui")
+(defvar docket-filter--title)
+(defvar docket-filter--predicate)
+(defvar docket-upcoming--ewoc)
+(defvar docket-filter--ewoc)
+(defvar docket-view--show-done)
+
 ;;;; Faces
 
 (defface docket-task-title
