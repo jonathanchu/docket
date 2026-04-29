@@ -525,6 +525,7 @@ TIME is an Emacs time value."
 (defun docket-view-refile ()
   "Move the task at point to a different project."
   (interactive)
+  (require 'docket-capture)
   (when-let ((task (docket-view--task-at-point)))
     (let* ((projects (cons docket-inbox-heading
                            (cl-remove docket-inbox-heading
